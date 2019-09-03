@@ -6,10 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
 {
-    protected $guard = [];
+    protected $guarded = [];
 
     public function productType() {
-        return $this->belongsTo(Product::class,'idProductType','id');
+        return $this->belongsTo(ProductType::class,'idProductType','id');
     }
 
     public function category() {

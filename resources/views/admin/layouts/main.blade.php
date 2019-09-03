@@ -89,14 +89,31 @@
 <script src="assets/admin/js/sb-admin-2.min.js"></script>
 <script src="assets/admin/js/ajax.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-
+<script src="https://cdn.ckeditor.com/ckeditor5/12.4.0/classic/ckeditor.js"></script>
 <!-- Page level plugins -->
 <script src="assets/admin/vendor/chart.js/Chart.min.js"></script>
 
 <!-- Page level custom scripts -->
 <script src="assets/admin/js/demo/chart-area-demo.js"></script>
 <script src="assets/admin/js/demo/chart-pie-demo.js"></script>
+@if (session('message'))
+    <script>
+        toastr.success( '{{ session('message') }}' , {timeOut:5000});
+    </script>
+@endif
+@if (session('error'))
+    <script>
+        toastr.error( '{{ session('error') }}' , {timeOut:5000});
+    </script>
+@endif
 
+<script>
+    ClassicEditor
+        .create( document.querySelector( '#editor' ) )
+        .catch( error => {
+            console.error( error );
+        } );
+</script>
 </body>
 
 </html>

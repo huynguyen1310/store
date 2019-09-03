@@ -23,21 +23,49 @@
     
         <!-- Heading -->
         <div class="sidebar-heading">
-        Categories
+        Pages
         </div>
     
         <!-- Nav Item - Pages Collapse Menu -->
         <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#categories-menu" aria-expanded="true" aria-controls="collapsePages">
             <i class="fas fa-fw fa-cog"></i>
             <span>Category</span>
         </a>
-        <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+        <div id="categories-menu" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <a class="collapse-item" href="{{ route('category.index') }}">List</a>
                 <a class="collapse-item" href="{{ route('category.create') }}">Add</a>
             </div>
         </div>
+        </li>
+
+        <!-- Nav Item - Pages Collapse Menu -->
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#product-type-menu" aria-expanded="true" aria-controls="collapsePages">
+                <i class="fas fa-fw fa-cog"></i>
+                <span>Product Type</span>
+            </a>
+            <div id="product-type-menu" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <a class="collapse-item" href="{{ route('product-type.index') }}">List</a>
+                    <a class="collapse-item" href="{{ route('product-type.create') }}">Add</a>
+                </div>
+            </div>
+        </li>
+
+        <!-- Nav Item - Pages Collapse Menu -->
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#product-menu" aria-expanded="true" aria-controls="collapsePages">
+                <i class="fas fa-fw fa-cog"></i>
+                <span>Product</span>
+            </a>
+            <div id="product-menu" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <a class="collapse-item" href="{{ route('product.index') }}">List</a>
+                    <a class="collapse-item" href="{{ route('product.create') }}">Add</a>
+                </div>
+            </div>
         </li>
     
         <!-- Divider -->

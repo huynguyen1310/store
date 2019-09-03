@@ -19,10 +19,11 @@ class CreateProductsTable extends Migration
             $table->string('slug');
             $table->text('description');
             $table->integer('qty');
-            $table->decimal('price');
-            $table->decimal('promo');
+            $table->float('price');
+            $table->float('promo');
             $table->integer('idCategory');
             $table->integer('idProductType');
+            $table->string('image');
             $table->integer('status')->default(1);
             $table->timestamps();
         });
