@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Category;
+use App\Http\Requests\StoreProductRequest;
 use App\Product;
 use App\ProductType;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 
 class ProductController extends Controller
 {
@@ -17,7 +19,8 @@ class ProductController extends Controller
     public function index()
     {
         $products = Product::paginate(5);
-        return view('admin.pages.product.list',compact('products'));
+        $categories = Category::whereStatus(1)->get();
+        return view('admin.pages.product.list',compact('products','categories'));
     }
 
     /**
@@ -35,10 +38,9 @@ class ProductController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreProductRequest $request)
     {
         if($request->has('image')) {
             $file = $request->image;
@@ -81,34 +83,68 @@ class ProductController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Product  $product
+     * @param  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Product $product)
+    public function edit($id)
     {
-        //
+        $product = Product::find($id);
+
+        return response()->json($product,200);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Product  $product
+     * @param  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Product $product)
+    public function update(Request $request, $id)
     {
-        //
+        dd($request->all());
+
+        $validator = Validator::make($request->all(),
+            [
+                'name' => 'required|min:2|max:255|unique:product_types,name',
+            ],
+            [
+                'name.required' => 'Product can\'t be blank',
+                'name.min' => 'Product must be more than 2 character',
+                'name.max' => 'Product can\'t be more 255 character',
+                'name.unique' => 'Product already exists'
+            ]
+        );
+
+        if ($validator->fails()) {
+            return response()->json(['error' => $validator->errors()],200);
+        }
+
+        $product = Product::find($id);
+        $product->update([
+            'name' => $request->name,
+            'slug' => str_slug($request->name , '-'),
+            'idCategory' => $request->category,
+            'status' => $request->status
+        ]);
+
+        return response()->json(['success' => 'Update success'],200);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Product  $product
+     * @param  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Product $product)
+    public function destroy($id)
     {
-        //
+        $product = Product::find($id);
+        if(File::exists('img/upload/product/'.$product->image)) {
+            unlink('img/upload/product/'.$product->image);
+        };
+        $product->delete();
+
+        return response()->json(['success' => 'Delete success'],200);
     }
 }

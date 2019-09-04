@@ -85,8 +85,6 @@ class ProductTypeController extends Controller
      */
     public function update(Request $request, $id)
     {
-        
-
         $validator = Validator::make($request->all(),
             [
                 'name' => 'required|min:2|max:255|unique:product_types,name',

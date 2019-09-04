@@ -22,26 +22,39 @@
                     <fieldset class="form-group">
                         <label>Quantity</label>
                         <input class="form-control" type="number" min="1" value="1" name="qty">
+                        @if ($errors->has('qty'))
+                            <span class="error" style="color: red;font-size: 1rem;">{{ $errors->first('qty') }}</span>
+                        @endif
                     </fieldset>
 
                     <fieldset class="form-group">
                         <label>Price</label>
                         <input class="form-control" placeholder="Enter Price" name="price">
+                        @if ($errors->has('price'))
+                            <span class="error" style="color: red;font-size: 1rem;">{{ $errors->first('price') }}</span>
+                        @endif
                     </fieldset>
 
                     <fieldset class="form-group">
                         <label>Promo</label>
                         <input class="form-control" placeholder="Enter promo" name="promo">
+                        @if ($errors->has('promo'))
+                            <span class="error" style="color: red;font-size: 1rem;">{{ $errors->first('promo') }}</span>
+                        @endif
                     </fieldset>
 
                     <fieldset class="form-group">
                         <label>Description</label>
                         <textarea class="form-control" name="description" id="editor"></textarea>
+                        @if ($errors->has('description'))
+                            <span class="error" style="color: red;font-size: 1rem;">{{ $errors->first('description') }}</span>
+                        @endif
                     </fieldset>
 
                     <div class="form-group">
                         <label>Category</label>
-                        <select class="form-control" name="idCategory">
+                        <select class="form-control addProductCategory" name="idCategory">
+                            <option value="0">----Select Category----</option>
                             @foreach ($categories as $category)
                                 <option value="{{ $category->id }}">{{ $category->name }}</option>
                             @endforeach
@@ -49,11 +62,7 @@
                     </div>
                     <div class="form-group">
                         <label>Product Type</label>
-                        <select class="form-control" name="idProductType">
-                            @foreach ($productTypes as $productType)
-                                <option value="{{ $productType->id }}">{{ $productType->name }}</option>
-                            @endforeach
-                        </select>
+                        <select class="form-control addProductType" name="idProductType" disabled></select>
                     </div>
                     <div class="form-group">
                         <label>Status</label>
@@ -66,6 +75,9 @@
                     <fieldset class="form-group">
                         <label>Image</label>
                         <input type="file" class="form-control" name="image">
+                        @if ($errors->has('image'))
+                            <span class="error" style="color: red;font-size: 1rem;">{{ $errors->first('image') }}</span>
+                        @endif
                     </fieldset>
 
                     <button type="submit" class="btn btn-success">Submit</button>

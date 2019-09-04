@@ -106,10 +106,12 @@
         toastr.error( '{{ session('error') }}' , {timeOut:5000});
     </script>
 @endif
-
 <script>
     ClassicEditor
         .create( document.querySelector( '#editor' ) )
+        .then( newEditor => {
+            editor = newEditor;
+        } )
         .catch( error => {
             console.error( error );
         } );

@@ -63,8 +63,8 @@
                                 @endif
                             </td>
                             <td>
-                                <button class="btn btn-primary editProductType" title="{{ "Edit ".$product->name }}" type="button" data-id="{{ $product->id }}"><i class="fas fa-edit"></i></button>
-                                <button class="btn btn-danger deleteProductType" title="{{ "Delete ".$product->name }}" type="button" data-id="{{ $product->id }}" data-toggle="modal" data-target="#deleteProductType"><i class="fas fa-trash-alt"></i></button>
+                                <button class="btn btn-primary editProduct" title="{{ "Edit ".$product->name }}" type="button" data-id="{{ $product->id }}"><i class="fas fa-edit"></i></button>
+                                <button class="btn btn-danger deleteProduct" title="{{ "Delete ".$product->name }}" type="button" data-id="{{ $product->id }}" data-toggle="modal" data-target="#deleteProduct"><i class="fas fa-trash-alt"></i></button>
                             </td>
                         </tr>
                     @endforeach
@@ -76,7 +76,7 @@
         </div>
     </div>
     <!-- Edit Modal-->
-    <div class="modal fade" id="editProductType" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="editProduct" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -92,28 +92,61 @@
                                     @csrf
                                     <fieldset class="form-group">
                                         <label>Name</label>
-                                        <input class="form-control name" name="name" placeholder="Category name">
-                                        <span class="error" style="color: red;font-size: 1rem;"></span>
+                                        <input class="form-control name" placeholder="Enter Name" name="name">
                                     </fieldset>
+                
+                                    <fieldset class="form-group">
+                                        <label>Quantity</label>
+                                        <input class="form-control qty" type="number" min="1" value="1" name="qty">
+                                    </fieldset>
+                
+                                    <fieldset class="form-group">
+                                        <label>Price</label>
+                                        <input class="form-control price" placeholder="Enter Price" name="price">
+                                    </fieldset>
+                
+                                    <fieldset class="form-group">
+                                        <label>Promo</label>
+                                        <input class="form-control promo" placeholder="Enter promo" name="promo">
+                                    </fieldset>
+                
+                                    <fieldset class="form-group">
+                                        <label>Description</label>
+                                        <textarea class="form-control desc" name="description" id="editor"></textarea>
+
+                                    </fieldset>
+                
                                     <div class="form-group">
                                         <label>Category</label>
-                                        <select class="form-control category" name="category">
-                                        
+                                        <select class="form-control addProductCategory" name="idCategory">
+                                            <option value="0">----Select Category----</option>
+                                            @foreach ($categories as $category)
+                                                <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                            @endforeach
                                         </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Product Type</label>
+                                        <select class="form-control addProductType" name="idProductType" disabled></select>
                                     </div>
                                     <div class="form-group">
                                         <label>Status</label>
                                         <select class="form-control status" name="status">
-                                            <option value="1" class="show">Show</option>
-                                            <option value="0" class="dont-show">Don't show</option>
+                                            <option value="1">Show</option>
+                                            <option value="0">Don't show</option>
                                         </select>
                                     </div>
+                
+                                    <fieldset class="form-group">
+                                        <label>Image</label>
+                                        <input type="file" class="form-control" name="image">
+                                    </fieldset>
                                 </form>
                             </div>
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-success updateProductType">Save</button>
+                        <button type="button" class="btn btn-success updateProduct">Save</button>
                         <button type="reset" class="btn btn-primary">Reset</button>
                         <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
                     </div>
@@ -121,7 +154,7 @@
             </div>
     </div>
     <!-- delete Modal-->
-    <div class="modal fade" id="deleteProductType" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="deleteProduct" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">

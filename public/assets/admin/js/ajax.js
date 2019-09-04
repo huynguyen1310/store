@@ -146,4 +146,110 @@ $(document).ready(() => {
         })
         
     });
+
+    $('.addProductCategory').change(function() {
+        let idCate = $(this).val();
+        $(".addProductType").empty();
+        
+        if($(this).children("option:selected").val() == 0)
+        {
+            $(".addProductType").attr('disabled',true);
+        }else {
+            $.ajax({
+                type: "get",
+                url: "getproducttype/" + idCate,
+                dataType: "json",
+                success: function (res) {
+                    for (let i = 0; i < res.length; i++) {                 
+                        let opt = document.createElement('option');
+                        // create text node to add to option element (opt)
+                        opt.appendChild( document.createTextNode(res[i].name) );
+                        // set value property of opt
+                        opt.value = res[i].id;
+                        $(".addProductType").append(opt);
+                    }
+                    $(".addProductType").removeAttr('disabled');
+                }
+            });
+        }
+    })
+
+    //EDIT PRODUCT
+    $('.editProduct').click(function() {
+        let id = $(this).data("id");
+        $.ajax({
+            type: "GET",
+            url: "admin/product/" + id + "/edit",
+            dataType: "json",
+            success: function (res) {
+                $('.name').val(res.name);
+                $('.qty').val(res.qty);
+                $('.price').val(res.price);
+                $('.promo').val(res.promo);
+                editor.setData(res.description);
+                $('.status').val(res.status);
+            }
+        });
+        setTimeout(() => {
+            $('#editProduct').modal();
+        }, 500);
+
+        $('.updateProduct').click(function () { 
+            let name = $('.name').val();
+            let category = $('.addProductType').children("option:selected").val();
+            let status = $('.status').val();
+            let qty = $('.qty').val();
+            let price = $('.price').val();
+            let promo = $('.promo').val();
+            let desc = editor.getData();
+            console.log('click');
+            
+            $.ajax({
+                type: "put",
+                url: "admin/product/" + id,
+                data: {
+                    name,
+                    category,
+                    status,
+                    qty,
+                    price,
+                    promo,
+                    desc
+                },
+                dataType: "json",
+                success: function (res) {
+                    console.log(res);
+                    
+                    if (res.error) {
+                        $('.error').show();
+                        $('.error').html(res.error.name[0]);
+                        
+                    }else {
+                        toastr.success(res.success ,{timeOut:5000} );
+                        $('#edit').modal('hide');
+                        location.reload();
+                    }
+                }
+            });
+        });
+    });
+
+    
+    //DELETE PRODUCT
+    $('.deleteProduct').click(function () {
+        let id = $(this).data('id');
+        $('.del').click(function() {
+            $.ajax({
+                type: "delete",
+                url: "admin/product/" + id,
+                dataType: "json",
+                success: function (res) {
+                    toastr.success(res.success ,{timeOut:5000} );
+                    $('.del').modal('hide');
+                    location.reload();
+                }
+            });
+        })
+        
+    });
 })
