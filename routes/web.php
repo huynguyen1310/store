@@ -11,9 +11,15 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'HomeController@index');
+Route::get('callback/{social}','HomeController@handleProviderCallback');
+Route::get('login/{social}','HomeController@redirectProvider')->name('login.social');
+Route::get('/login', 'HomeController@login');
+Route::post('/login', 'HomeController@postLogin')->name('post.login');
+Route::get('/register', 'HomeController@register');
+Route::post('/register', 'HomeController@postRegister')->name('register');
+Route::get('logout','HomeController@logout');
+
 
 Route::get('getproducttype/{id}','AjaxController@getproducttype');
 
