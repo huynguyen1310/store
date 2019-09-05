@@ -74,7 +74,7 @@
                                     @csrf
                                     <fieldset class="form-group">
                                         <label>Name</label>
-                                        <input class="form-control name" name="name" placeholder="Category name">
+                                        <input class="form-control name" name="name" placeholder="Product Type name">
                                         <span class="error" style="color: red;font-size: 1rem;"></span>
                                     </fieldset>
                                     <div class="form-group">

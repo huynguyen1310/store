@@ -201,9 +201,7 @@ $(document).ready(() => {
             let qty = $('.qty').val();
             let price = $('.price').val();
             let promo = $('.promo').val();
-            let desc = editor.getData();
-            console.log('click');
-            
+            let description = editor.getData();            
             $.ajax({
                 type: "put",
                 url: "admin/product/" + id,
@@ -214,21 +212,40 @@ $(document).ready(() => {
                     qty,
                     price,
                     promo,
-                    desc
+                    description
                 },
                 dataType: "json",
                 success: function (res) {
-                    console.log(res);
-                    
-                    if (res.error) {
-                        $('.error').show();
-                        $('.error').html(res.error.name[0]);
-                        
-                    }else {
-                        toastr.success(res.success ,{timeOut:5000} );
+                    let errors = res.error;    
+                    if (errors) {
+                        if(errors.name) {
+                            $('.error-name').show();
+                            $('.error-name').html(errors.name[0]);
+                        }
+                        if (errors.qty) {
+                            $('.error-qty').show();
+                            $('.error-qty').html(errors.qty[0]);
+                        }
+                        if (errors.price) {
+                            $('.error-price').show();
+                            $('.error-price').html(errors.price[0]);
+                        }
+                        if (errors.promo) {
+                            $('.error-promo').show();
+                            $('.error-promo').html(errors.promo[0]);
+                        }
+                        if (errors.description) {
+                            $('.error-description').show();
+                            $('.error-description').html(errors.description[0]);
+                        }
+ 
+                    }else {                        
                         $('#edit').modal('hide');
-                        location.reload();
-                    }
+                        toastr.success(res.success ,{timeOut:5000} );
+                        setTimeout(() => {
+                            location.reload();
+                        },500)
+                    }   
                 }
             });
         });

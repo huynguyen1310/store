@@ -93,27 +93,31 @@
                                     <fieldset class="form-group">
                                         <label>Name</label>
                                         <input class="form-control name" placeholder="Enter Name" name="name">
+                                        <span class="error-name" style="color: red;font-size: 1rem;"></span>
                                     </fieldset>
                 
                                     <fieldset class="form-group">
                                         <label>Quantity</label>
                                         <input class="form-control qty" type="number" min="1" value="1" name="qty">
+                                        <span class="error-qty" style="color: red;font-size: 1rem;"></span>
                                     </fieldset>
                 
                                     <fieldset class="form-group">
                                         <label>Price</label>
                                         <input class="form-control price" placeholder="Enter Price" name="price">
+                                        <span class="error-price" style="color: red;font-size: 1rem;"></span>
                                     </fieldset>
                 
                                     <fieldset class="form-group">
                                         <label>Promo</label>
                                         <input class="form-control promo" placeholder="Enter promo" name="promo">
+                                        <span class="error-promo" style="color: red;font-size: 1rem;"></span>
                                     </fieldset>
                 
                                     <fieldset class="form-group">
                                         <label>Description</label>
                                         <textarea class="form-control desc" name="description" id="editor"></textarea>
-
+                                        <span class="error-description" style="color: red;font-size: 1rem;"></span>
                                     </fieldset>
                 
                                     <div class="form-group">

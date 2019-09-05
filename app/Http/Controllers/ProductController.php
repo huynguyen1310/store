@@ -8,6 +8,8 @@ use App\Product;
 use App\ProductType;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Validator;
+
 
 class ProductController extends Controller
 {
@@ -102,17 +104,14 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        dd($request->all());
-
         $validator = Validator::make($request->all(),
             [
-                'name' => 'required|min:2|max:255|unique:product_types,name',
-            ],
-            [
-                'name.required' => 'Product can\'t be blank',
-                'name.min' => 'Product must be more than 2 character',
-                'name.max' => 'Product can\'t be more 255 character',
-                'name.unique' => 'Product already exists'
+                'name' => 'required|min:2|max:255|unique:products,name',
+                'description' => 'required|min:2',
+                'qty' => 'required|numeric',
+                'price' => 'required|numeric',
+                'promo' => 'required|numeric',
+                'image' => 'image',
             ]
         );
 
@@ -125,7 +124,11 @@ class ProductController extends Controller
             'name' => $request->name,
             'slug' => str_slug($request->name , '-'),
             'idCategory' => $request->category,
-            'status' => $request->status
+            'status' => $request->status,
+            'qty' => $request->qty,
+            'price' => $request->price,
+            'promo' => $request->promo,
+            'description' => $request->description
         ]);
 
         return response()->json(['success' => 'Update success'],200);
