@@ -12,13 +12,14 @@
 */
 
 Route::get('/', 'HomeController@index');
-Route::get('callback/{social}','HomeController@handleProviderCallback');
-Route::get('login/{social}','HomeController@redirectProvider')->name('login.social');
-Route::get('/login', 'HomeController@login');
-Route::post('/login', 'HomeController@postLogin')->name('post.login');
-Route::get('/register', 'HomeController@register');
-Route::post('/register', 'HomeController@postRegister')->name('register');
-Route::get('logout','HomeController@logout');
+
+Route::get('callback/{social}','UserController@handleProviderCallback');
+Route::get('login/{social}','UserController@redirectProvider')->name('login.social');
+Route::get('/login', 'UserController@login');
+Route::post('/login', 'UserController@postLogin')->name('post.login');
+Route::get('/register', 'UserController@register');
+Route::post('/register', 'UserController@postRegister')->name('register');
+Route::get('logout','UserController@logout');
 
 
 Route::get('getproducttype/{id}','AjaxController@getproducttype');
