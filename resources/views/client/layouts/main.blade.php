@@ -16,6 +16,7 @@
 	<meta charset="UTF-8">
 	<!-- Site Title -->
 	<title>Karma Shop</title>
+	<meta name="csrf-token" content="{{ csrf_token() }}">
 	<!--
 		CSS
 		============================================= -->
@@ -47,8 +48,10 @@
 	<!-- End footer Area -->
 
 	<script src="assets/client/js/vendor/jquery-2.2.4.min.js"></script>
+	<link href="assets/admin/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4"
 	crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 	<script src="assets/client/js/vendor/bootstrap.min.js"></script>
 	<script src="assets/client/js/jquery.ajaxchimp.min.js"></script>
 	<script src="assets/client/js/jquery.nice-select.min.js"></script>
@@ -60,8 +63,9 @@
 	<!--gmaps Js-->
 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjCGmQ0Uq4exrzdcL6rvxywDDOvfAu6eE"></script>
 	<script src="assets/client/js/gmaps.min.js"></script>
+	<script src="assets/client/js/ajax.js"></script>
 	<script src="assets/client/js/main.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
 	@if (session('message'))
 		<script>
 			toastr.success( '{{ session('message') }}' , {timeOut:5000});

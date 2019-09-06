@@ -30,3 +30,7 @@ Route::group(['prefix' => 'admin'] , function () {
     Route::resource('product-type','ProductTypeController');
     Route::resource('product','ProductController');
 });
+
+Route::resource('cart','CartController');
+Route::get('add-cart/{id}','CartController@addCart')->name('addCart');
+Route::get('destroy-cart','CartController@destroyCart');

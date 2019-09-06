@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Category;
+use App\ProductType;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -11,6 +13,11 @@ use App\User;
 
 class UserController extends Controller
 {
+    public function __construct() {
+        $categories = Category::whereStatus(1)->get();
+        $productTypes = ProductType::whereStatus(1)->get();
+        view()->share(['categories'=> $categories,'productTypes' => $productTypes] );
+    }
     /**
      * Display a listing of the resource.
      *
