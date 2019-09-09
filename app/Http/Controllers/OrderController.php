@@ -35,7 +35,18 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->all();
+        $data['idUser'] = $request->idUser;
+        $data['email'] = $request->email;
+        $data['address'] = $request->address;
+        $data['name'] = $request->name;
+        $data['phone'] = $request->phone;
+        $data['money'] = (int)$request->payTotal;
+        $data['code_order'] = 'order'.rand();
+        
+        $order = Order::create($data);
+
+        return response()->json($order,200);
     }
 
     /**

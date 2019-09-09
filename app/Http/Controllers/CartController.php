@@ -3,10 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Category;
+use App\Order;
+use App\OrderDetail;
 use App\Product;
 use App\ProductType;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CartController extends Controller
 {
@@ -46,7 +49,26 @@ class CartController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = ($request->all());
+
+        $order = Order::create([
+            'idUser' => $request->idUser,
+            'code_order' => 'order'.rand(),
+            'money' => $request->total
+        ]);
+        
+        // $orderDetail = [];
+
+        // foreach (Cart::content() as $cart) {
+        //     $orderDetail['idOrder'] = $order->id;
+        //     $orderDetail['idProduct'] = $cart->id;
+        //     $orderDetail['qty'] = $cart->qty;
+        //     $orderDetail['price'] = $cart->price;
+        //     OrderDetail::create($orderDetail);
+        // }
+
+        Cart::destroy();
+        return response()->json($order,200);
     }
 
     /**
@@ -121,4 +143,11 @@ class CartController extends Controller
     public function destroyCart() {
         Cart::destroy();
     }
+
+    public function checkout() {
+        $user = Auth::user();
+        $carts = Cart::content();
+        return view('client.pages.checkout',compact('user','carts'));
+    }
+    
 }

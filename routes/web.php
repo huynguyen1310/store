@@ -15,10 +15,12 @@ Route::get('/', 'HomeController@index');
 
 Route::get('callback/{social}','UserController@handleProviderCallback');
 Route::get('login/{social}','UserController@redirectProvider')->name('login.social');
-Route::get('/login', 'UserController@login');
-Route::post('/login', 'UserController@postLogin')->name('post.login');
-Route::get('/register', 'UserController@register');
-Route::post('/register', 'UserController@postRegister')->name('register');
+Route::get('login', 'UserController@login');
+Route::post('login', 'UserController@postLogin')->name('post.login');
+Route::get('register', 'UserController@register');
+Route::post('register', 'UserController@postRegister')->name('register');
+Route::get('profile','UserController@profile')->name('profile');
+Route::post('update-profile', 'CustomerController@store')->name('update-profile');
 Route::get('logout','UserController@logout');
 
 
@@ -33,4 +35,5 @@ Route::group(['prefix' => 'admin'] , function () {
 
 Route::resource('cart','CartController');
 Route::get('add-cart/{id}','CartController@addCart')->name('addCart');
+Route::get('checkout','CartController@checkout')->name('checkout');
 Route::get('destroy-cart','CartController@destroyCart');

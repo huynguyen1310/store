@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Customer;
+use App\Http\Requests\StoreCustomerRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CustomerController extends Controller
 {
@@ -34,8 +36,21 @@ class CustomerController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-        //
+    {   
+        $request->validate([
+            'email' => 'required|email',
+            'phone' => 'required|numeric',
+            'address' => 'required|min:2|max:255'
+        ]);
+
+        Customer::create([
+            'idUser' => $request->idUser,
+            'email' => $request->email,
+            'phone' => $request->phone,
+            'address' => $request->address,
+        ]);
+
+        return redirect()->back();
     }
 
     /**

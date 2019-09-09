@@ -21,7 +21,7 @@ class CreateOrdersTable extends Migration
             $table->string('address');
             $table->string('email');
             $table->string('phone');
-            $table->decimal('money');
+            $table->float('money');
             $table->text('message')->nullable();
             $table->integer('status')->default(0);
             $table->timestamps();

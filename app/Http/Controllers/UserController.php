@@ -160,4 +160,9 @@ class UserController extends Controller
             return redirect('/');
         }
     }
+
+    public function profile() {
+        $user = Auth::user();
+        return view('client.pages.profile',compact('user'));
+    }
 }

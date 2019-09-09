@@ -6,9 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Customer extends Model
 {
-    protected $guard = [];
+    protected $guarded = [];
 
-    public function User() {
+    public function user() {
         return $this->belongsTo(User::class,'idUser','id');
     }
 }

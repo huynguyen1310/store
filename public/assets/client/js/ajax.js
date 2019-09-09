@@ -35,4 +35,30 @@ $(document).ready(function () {
             }
         });
     })
+
+    $('.checkout').click(function () {
+        let total = $('.total').text().replace('$','').replace(',','');
+        let name = $('.name').val();
+        let phone = $('.phone').val();
+        let email = $('.email').val();
+        let address = $('.address').val();
+
+        $.ajax({
+            type: "post",
+            url: "cart",
+            data: {
+                total,
+                name,
+                phone,
+                email,
+                address
+            },
+            dataType: "json",
+            success: function (res) {
+                console.log(res);
+                
+            }
+        });
+    });
+
 })
