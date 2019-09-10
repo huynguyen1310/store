@@ -19,14 +19,14 @@ class CartController extends Controller
         $productTypes = ProductType::whereStatus(1)->get();
         view()->share(['categories'=> $categories,'productTypes' => $productTypes] );
     }
-    
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {   
+    {
         $carts = Cart::content();
         return view('client.pages.cart',compact('carts'));
     }
@@ -49,26 +49,28 @@ class CartController extends Controller
      */
     public function store(Request $request)
     {
-        $data = ($request->all());
-
         $order = Order::create([
-            'idUser' => $request->idUser,
+            'idUser' => Auth::user()->id,
             'code_order' => 'order'.rand(),
-            'money' => $request->total
+            'money' => $request->total,
+            'name' => $request->name,
+            'address' => $request->address,
+            'email' => $request->email,
+            'phone' => $request->phone
         ]);
-        
-        // $orderDetail = [];
 
-        // foreach (Cart::content() as $cart) {
-        //     $orderDetail['idOrder'] = $order->id;
-        //     $orderDetail['idProduct'] = $cart->id;
-        //     $orderDetail['qty'] = $cart->qty;
-        //     $orderDetail['price'] = $cart->price;
-        //     OrderDetail::create($orderDetail);
-        // }
+        $orderDetail = [];
+
+        foreach (Cart::content() as $cart) {
+            $orderDetail['idOrder'] = $order->id;
+            $orderDetail['idProduct'] = $cart->id;
+            $orderDetail['qty'] = $cart->qty;
+            $orderDetail['price'] = $cart->price;
+            OrderDetail::create($orderDetail);
+        }
 
         Cart::destroy();
-        return response()->json($order,200);
+        return response()->json(['success' => 'Checkout success'],200);
     }
 
     /**
@@ -110,9 +112,9 @@ class CartController extends Controller
                 Cart::update($id,$request->qty);
                 return response()->json(['result' => 'Update success']);
             }
-            
+
         }
-        
+
     }
 
     /**
@@ -149,5 +151,5 @@ class CartController extends Controller
         $carts = Cart::content();
         return view('client.pages.checkout',compact('user','carts'));
     }
-    
+
 }

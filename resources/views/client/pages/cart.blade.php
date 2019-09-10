@@ -16,7 +16,7 @@
                 </div>
             </section>
             <!-- End Banner Area -->
-        
+
             <!--================Cart Area =================-->
             <section class="cart_area">
                 <div class="container">
@@ -62,7 +62,7 @@
                                                 </form>
                                             </td>
                                             <td>
-                                                <h5>${{ $cart->subtotal() }}</h5>
+                                                <h5>${{ number_format($cart->subtotal()) }}</h5>
                                             </td>
                                             <td><span class="btn btn-danger text-center delete-cart" data-id="{{ $cart->rowId }}"><i class="fas fa-trash-alt"></i></span></td>
                                         </tr>
@@ -73,10 +73,10 @@
                                             <a class="gray_btn" href="#">Update Cart</a>
                                         </td>
                                         <td>
-        
+
                                         </td>
                                         <td>
-        
+
                                         </td>
                                         <td>
                                             <div class="cupon_text d-flex align-items-center">
@@ -87,27 +87,27 @@
                                     </tr>
                                     <tr>
                                         <td>
-        
+
                                         </td>
                                         <td>
-        
+
                                         </td>
                                         <td>
                                             <h5>Subtotal</h5>
                                         </td>
                                         <td>
-                                            <h5>${{ Cart::subtotal() }}</h5>
+                                            <h5>${{ number_format(Cart::subtotal()) }}</h5>
                                         </td>
                                     </tr>
                                     <tr class="out_button_area">
                                         <td>
-        
+
                                         </td>
                                         <td>
-        
+
                                         </td>
                                         <td>
-        
+
                                         </td>
                                         <td>
                                             <div class="checkout_btn_inner d-flex align-items-center">
@@ -122,5 +122,5 @@
                 </div>
             </section>
             <!--================End Cart Area =================-->
-        
+
 @endsection

@@ -18,7 +18,7 @@ $(document).ready(function () {
             dataType: "json",
             success: function (res) {
                 toastr.success(res.success ,{timeOut:5000} );
-                location.reload();  
+                location.reload();
             }
         });
     })
@@ -31,7 +31,7 @@ $(document).ready(function () {
             dataType: "json",
             success: function (res) {
                 // toastr.success(res.success ,{timeOut:5000} );
-                location.reload();  
+                location.reload();
             }
         });
     })
@@ -55,8 +55,8 @@ $(document).ready(function () {
             },
             dataType: "json",
             success: function (res) {
-                console.log(res);
-                
+                toastr.success(res.success ,{timeOut:5000} );
+                location.href = '/';
             }
         });
     });
