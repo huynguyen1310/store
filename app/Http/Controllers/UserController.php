@@ -165,4 +165,38 @@ class UserController extends Controller
         $user = Auth::user();
         return view('client.pages.profile',compact('user'));
     }
+
+    public function adminLogin() {
+        return view('admin.pages.login');
+    }
+
+    public function postAdminLogin(Request $request) {
+        $data = $request->only('email','password');
+        if(Auth::attempt($data,$request->has('remember'))){
+            if(Auth::user()->role == 1)
+                return redirect('admin/')
+                        ->with('message','Login success');
+            else if(Auth::user()->role == 2)
+                return redirect()
+                    ->route('category.index')
+                    ->with('message','Login success');
+            else if(Auth::user()->role == 3)
+                return redirect()
+                        ->route('product.index')
+                        ->with('message','Login success');
+            else if(Auth::user()->role == 4)
+                return redirect()
+                        ->route('order.index')
+                        ->with('message','Login success');
+        }
+        else{
+        return redirect()
+                ->route('login.admin')
+                ->with('error','Login faild');
+        }
+    }
+
+    public function adminRegister() {
+        return view('admin.pages.register');
+    }
 }
